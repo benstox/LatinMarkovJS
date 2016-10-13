@@ -1,3 +1,4 @@
 syntax: glob
-texts/*.txt
+texts/
 .DS_Store
+page.html
