@@ -7,12 +7,22 @@ var capitalizeFirstLetter = function(string) {
 };
 
 var getWordsFromText = function(text) {
-    var words = reverse(text).split(" ");
+    var words = text.split(" ");
     return(words);
 };
 
 var getWordsStartingWith = function(words, starting) {
     words = words.filter(function (x) {return(x.startsWith(starting));});
+    return(words);
+};
+
+var getWordsEndingWith = function(words, starting) {
+    words = words.filter(function (x) {return(x.endsWith(starting));});
+    return(words);
+};
+
+var getWordsOfMinLength = function(words, min_length) {
+    words = words.filter(function (x) {return(x.length >= min_length);});
     return(words);
 };
 
@@ -44,7 +54,7 @@ var words = getWordsFromText(text);
 var endings = {"feminine": "a", "masculine": "um", "neuter": "um"};
 var gender_words = {};
 for (var key in endings) {
-    var words_of_gender = getWordsStartingWith(words, endings[key]);
+    var words_of_gender = getWordsOfMinLength(getWordsEndingWith(words, endings[key]), 4);
     gender_words[key] = separateLetters(words_of_gender);
 };
 
@@ -72,16 +82,17 @@ var choice = function (a) {
 };
 
 var make_name = function (min_length) {
-    word = choice(startletters);
-    var name = [word];
-    while (letterstats.hasOwnProperty(word)) {
-        var next_letters = letterstats[word];
-        word = choice(next_letters);
-        name.push(word);
-        if (name.length > min_length && terminals.hasOwnProperty(word)) break;
+    letter = choice(startletters);
+    var name = [letter];
+    while (letterstats.hasOwnProperty(letter)) {
+        var next_letters = letterstats[letter];
+        letter = choice(next_letters);
+        name.push(letter);
+        console.log(name.length);
+        if (name.length > min_length && terminals.hasOwnProperty(letter)) break;
     }
     if (name.length < min_length) return make_name(min_length);
-    return capitalizeFirstLetter(reverse(name.join('')));
+    return capitalizeFirstLetter(name.join(''));
 };
 
 var name = make_name(5 + Math.floor(3 * Math.random()));
