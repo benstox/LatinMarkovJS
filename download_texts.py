@@ -19,8 +19,11 @@ pages = {
         {"url": "http://www.thelatinlibrary.com/augustine/conf1.shtml",
          "css": "body"},
     "voragine_leg_aur_georgio":
-         {"url": "http://www.thelatinlibrary.com/voragine/georgio.shtml",
-          "css": "body"}}
+        {"url": "http://www.thelatinlibrary.com/voragine/georgio.shtml",
+          "css": "body"},
+    "biblia_evang_sec_joan_i":
+        {"url": "http://www.thelatinlibrary.com/bible/john.shtml",
+         "css": "body"}}
 
 script_tags = []
 for to_do, page in pages.items():

@@ -33,22 +33,14 @@ var separateLetters = function(words) {
     return(words);
 };
 
-var text = [
-    "in principio erat Verbum et Verbum erat apud Deum et Deus erat Verbum",
-    "hoc erat in principio apud Deum",
-    "omnia per ipsum facta sunt et sine ipso factum est nihil quod factum est",
-    "in ipso vita erat et vita erat lux hominum",
-    "et lux in tenebris lucet et tenebrae eam non conprehenderunt",
-    "fuit homo missus a Deo cui nomen erat Iohannes",
-    "hic venit in testimonium ut testimonium perhiberet de lumine ut omnes crederent per illum",
-    "non erat ille lux sed ut testimonium perhiberet de lumine",
-    "erat lux vera quae inluminat omnem hominem venientem in mundum",
-    "in mundo erat et mundus per ipsum factus est et mundus eum non cognovit",
-    "in propria venit et sui eum non receperunt",
-    "quotquot autem receperunt eum dedit eis potestatem filios Dei fieri his qui credunt in nomine eius",
-    "qui non ex sanguinibus neque ex voluntate carnis neque ex voluntate viri sed ex Deo nati sunt",
-    "et Verbum caro factum est et habitavit in nobis et vidimus gloriam eius gloriam quasi unigeniti a Patre plenum gratiae et veritatis"];
-text = text.join(" ").toLowerCase();
+function getUnique(value, index, self) { 
+    return self.indexOf(value) === index;
+}
+
+texts = $.map($(".training-text"), function(x) {
+    return(/([^/]+)(?=\.js)/.exec(x.src));}).filter(getUnique);
+var text = $.map(texts, function(x) {return window[x];}).join(' ');
+text = text.toLowerCase();
 
 var words = getWordsFromText(text);
 var endings = {"feminine": "a", "masculine": "um", "neuter": "um"};
