@@ -1,32 +1,39 @@
 var reverse = function(s) {
-  return s.split('').reverse().join('');
+    // reverse a string
+    return s.split('').reverse().join('');
 };
 
 var capitalizeFirstLetter = function(string) {
+    // capitalise first letter of a string
     return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 var getWordsFromText = function(text) {
+    // split a text into an array of words
     var words = text.split(" ");
     return(words);
 };
 
 var getWordsStartingWith = function(words, starting) {
+    // get only the words that start with a certain string from an array of words
     words = words.filter(function (x) {return(x.startsWith(starting));});
     return(words);
 };
 
 var getWordsEndingWith = function(words, starting) {
+    // get only the words that end with a certain string from an array of words
     words = words.filter(function (x) {return(x.endsWith(starting));});
     return(words);
 };
 
 var getWordsOfMinLength = function(words, min_length) {
+    // get only the words of a certain minimum length from an array of words
     words = words.filter(function (x) {return(x.length >= min_length);});
     return(words);
 };
 
 var separateLetters = function(words) {
+    // put a space between every letter of every word
     for (var i = 0; i < words.length; i++) {
         words[i] = words[i].split("").join(" ");
     };
@@ -34,6 +41,7 @@ var separateLetters = function(words) {
 };
 
 function getUnique(value, index, self) { 
+    // get unique values from an array
     return self.indexOf(value) === index;
 }
 
@@ -43,14 +51,14 @@ var text = $.map(texts, function(x) {return window[x];}).join(' ');
 text = text.toLowerCase();
 
 var words = getWordsFromText(text);
-var endings = {"feminine": "a", "masculine": "um", "neuter": "um"};
+var endings = {"feminine": "a", "masculine": "us", "neuter": "um"};
 var gender_words = {};
 for (var key in endings) {
     var words_of_gender = getWordsOfMinLength(getWordsEndingWith(words, endings[key]), 4);
     gender_words[key] = separateLetters(words_of_gender);
 };
 
-words = separateLetters(gender_words["feminine"]);
+words = gender_words["feminine"];
 var terminals = {};
 var startletters = [];
 var letterstats = {};
