@@ -20,9 +20,12 @@ pages = {
          "css": "body"},
     "voragine_leg_aur_georgio":
         {"url": "http://www.thelatinlibrary.com/voragine/georgio.shtml",
-          "css": "body"},
+         "css": "body"},
     "biblia_evang_sec_joan_i":
         {"url": "http://www.thelatinlibrary.com/bible/john.shtml",
+         "css": "body"},
+    "seneca_de_beneficiis_i":
+        {"url": "http://www.thelatinlibrary.com/sen/ben1.shtml",
          "css": "body"}}
 
 script_tags = []
