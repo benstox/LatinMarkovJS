@@ -1,3 +1,6 @@
+CONSONANTS = "bcdfghjklmnpqrstvwxz";
+VOWELS = "aeiouy";
+
 var reverse = function(s) {
     // reverse a string
     return s.split('').reverse().join('');
@@ -38,6 +41,25 @@ var separateLetters = function(words) {
         words[i] = words[i].split("").join(" ");
     };
     return(words);
+};
+
+var hasTooManyLettersInARow = function(
+        word, letter_type, not_exceeding) {
+    // does this word have too many letters of a
+    // certain type in a row? E.g. too many
+    // consonants in a row?
+    how_many = 0
+    for (var i = 0; i < word.length; i++) {
+        if (letter_type.search(word[i]) != -1) {
+            how_many = how_many + 1;
+            if (how_many > not_exceeding) {
+                return(true);
+            };
+        } else {
+            how_many = 0;
+        };
+    };
+    return(false);
 };
 
 function getUnique(value, index, self) { 
