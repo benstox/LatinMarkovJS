@@ -8,7 +8,7 @@ var BAD_COMBINATIONS = [
     /pspt/,
     /rbd/,
     new RegExp("[" + SONORANTS + "]cc"),
-    new RegExp("[" + CONSONANTS + "]r[" + CONSONANTS + "]"),
+    new RegExp("[" + CONSONANTS + "][" + SONORANTS + "][" + CONSONANTS + "]"),
     new RegExp("[" + CONSONANTS + "]{5}"),
     new RegExp("[" + VOWELS + "]{4}")]
 
