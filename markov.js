@@ -7,10 +7,12 @@ var BAD_COMBINATIONS = [
     new RegExp("gn[" + CONSONANTS + "]"),
     /pspt/,
     /rbd/,
+    /ibus$/,
+    /orum$/,
     new RegExp("[" + SONORANTS + "]cc"),
     new RegExp("[" + CONSONANTS + "][" + SONORANTS + "][" + CONSONANTS + "]"),
     new RegExp("[" + CONSONANTS + "]{5}"),
-    new RegExp("[" + VOWELS + "]{4}")]
+    new RegExp("[" + VOWELS + "]{4}")];
 
 var reverse = function(s) {
     // reverse a string
@@ -101,6 +103,9 @@ var make_name = function (min_length, gender) {
         BAD_COMBINATIONS.some(function (x) {return(x.test(name));})) {
             console.log("Bad combinations: " + name);
             return make_name(min_length, gender);};
+    // replace certain bad endings 
+    name = name.replace(/[^u]{1}s$/, "us");
+    name = name.replace(/[^u]{1}m$/, "um");
     return capitalizeFirstLetter(name);
 };
 
