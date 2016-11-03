@@ -9,6 +9,7 @@ var BAD_COMBINATIONS = [
     /rbd/,
     /ibus$/,
     /orum$/,
+    /xx/,
     new RegExp("[" + SONORANTS + "]cc"),
     new RegExp("[" + CONSONANTS + "][" + SONORANTS + "][" + CONSONANTS + "]"),
     new RegExp("[" + CONSONANTS + "]{5}"),
@@ -48,6 +49,11 @@ var getWordsOfMinLength = function(words, min_length) {
     return(words);
 };
 
+var normalizeVariations = function(words, variation, ending) {
+    words = words.map(function(x) {return(x.replace(variation, ending))})
+    return(words);
+};
+
 var separateLetters = function(words) {
     // put a space between every letter of every word
     for (var i = 0; i < words.length; i++) {
@@ -75,9 +81,14 @@ var hasTooManyLettersInARow = function(
     return(false);
 };
 
-function getUnique(value, index, self) { 
+var getUnique = function (value, index, self) { 
     // get unique values from an array
     return self.indexOf(value) === index;
+};
+
+var regex_to_string = function(regex) {
+    var result = regex.toString().replace(/\//g, "").replace("$", "").replace("^", "");
+    return(result);
 };
 
 var choice = function (a) {
@@ -116,12 +127,20 @@ var text = $.map(texts, function(x) {return window[x];}).join(' ');
 text = text.toLowerCase();
 
 var words = getWordsFromText(text);
-var genders = {"feminine": {"ending": "a"},
-               "masculine": {"ending": "us"},
+var genders = {"feminine": {"ending": "a", "variations": [/ae$/, /as$/]},
+               "masculine": {"ending": "us", "variations": [/i$/, /os$/, /o$/]},
                "neuter": {"ending": "um"}}
 
 for (var gender in genders) {
-    var words_of_gender = getWordsOfMinLength(getWordsEndingWith(words, genders[gender]["ending"]), 4);
+    var ending = genders[gender]["ending"];
+    var words_of_gender = getWordsOfMinLength(getWordsEndingWith(words, ending), 4);
+    // get variant words of this gender and add them in too, e.g. -ae words
+    for (var variation_i in genders[gender]["variations"]) {
+        var variation = genders[gender]["variations"][variation_i];
+        var variation_words = getWordsOfMinLength(getWordsEndingWith(words, regex_to_string(variation)), 4);
+        variation_words = normalizeVariations(variation_words, variation, ending);
+        words_of_gender = words_of_gender.concat(variation_words);
+    };
     words_of_gender = separateLetters(words_of_gender);
     var terminals = [];
     var startletters = [];
@@ -152,3 +171,5 @@ var neuter_name = make_name(5 + Math.floor(3 * Math.random()), "neuter");
 $("#feminine-name").text(feminine_name);
 $("#masculine-name").text(masculine_name);
 $("#neuter-name").text(neuter_name);
+
+console.log(genders["masculine"]["words"].length)
