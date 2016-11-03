@@ -10,6 +10,7 @@ var BAD_COMBINATIONS = [
     /ibus$/,
     /orum$/,
     /xx/,
+    /^ss/,
     new RegExp("[" + SONORANTS + "]cc"),
     new RegExp("[" + CONSONANTS + "][" + SONORANTS + "][" + CONSONANTS + "]"),
     new RegExp("[" + CONSONANTS + "]{5}"),
