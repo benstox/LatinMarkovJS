@@ -56,7 +56,25 @@ pages = {
          "css": "body"},
     "tertullian_de_monogamia_i":
         {"url": "http://www.thelatinlibrary.com/tertullian/tertullian.monog.shtml",
-         "css": "body"}}
+         "css": "body"},
+    "comenius_orbis_pictus_marini_pisces":
+        {"url": "https://web.archive.org/web/20120717032053/http://www.grexlat.com/biblio/comenius/35.html",
+         "css": "body > font"},
+    "comenius_orbis_pictus_pisces_fluviales":
+        {"url": "https://web.archive.org/web/20120207164150/http://www.grexlat.com/biblio/comenius/34.html",
+         "css": "body > font"},
+    "comenius_orbis_pictus_terrae_foetus":
+        {"url": "https://web.archive.org/web/20120204081655/http://www.grexlat.com/biblio/comenius/10.html",
+         "css": "body > blockquote > blockquote > blockquote > font"},
+    "comenius_orbis_pictus_planetarum_aspectus":
+        {"url": "https://web.archive.org/web/20120204082013/http://www.grexlat.com/biblio/comenius/104b.html",
+         "css": "body > font > p:nth-of-type(1)"},
+    "comenius_orbis_pictus_eques":
+        {"url": "https://web.archive.org/web/20120204081950/http://www.grexlat.com/biblio/comenius/84.html",
+         "css": "body > font"},
+    "comenius_orbis_pictus_insecta_volantia":
+        {"url": "https://web.archive.org/web/20120204081830/http://www.grexlat.com/biblio/comenius/25.html",
+         "css": "body > font > p:nth-of-type(1)"}}
 
 script_tags = []
 for to_do, page in pages.items():

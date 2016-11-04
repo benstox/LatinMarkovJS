@@ -11,6 +11,7 @@ var BAD_COMBINATIONS = [
     /orum$/,
     /xx/,
     /^ss/,
+    /^pth/,
     new RegExp("[" + SONORANTS + "]cc"),
     new RegExp("[" + CONSONANTS + "][" + SONORANTS + "][" + CONSONANTS + "]"),
     new RegExp("[" + CONSONANTS + "]{5}"),
@@ -113,7 +114,6 @@ var make_name = function (min_length, gender) {
     name = name.join("");
     if (name.length < min_length ||
         BAD_COMBINATIONS.some(function (x) {return(x.test(name));})) {
-            console.log("Bad combinations: " + name);
             return make_name(min_length, gender);};
     // replace certain bad endings 
     name = name.replace(/[^u]{1}s$/, "us");
@@ -172,5 +172,3 @@ var neuter_name = make_name(5 + Math.floor(3 * Math.random()), "neuter");
 $("#feminine-name").text(feminine_name);
 $("#masculine-name").text(masculine_name);
 $("#neuter-name").text(neuter_name);
-
-console.log(genders["masculine"]["words"].length)
