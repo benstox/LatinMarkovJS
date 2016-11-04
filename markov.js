@@ -39,9 +39,15 @@ var getWordsStartingWith = function(words, starting) {
     return(words);
 };
 
-var getWordsEndingWith = function(words, starting) {
+var getWordsEndingWith = function(words, ending) {
     // get only the words that end with a certain string from an array of words
-    words = words.filter(function (x) {return(x.endsWith(starting));});
+    words = words.filter(function (x) {return(x.endsWith(ending));});
+    return(words);
+};
+
+var getWordsNotEndingWith = function(words, ending) {
+    // get only the words that don't end with a certain string from an array of words
+    words = words.filter(function (x) {return(!x.endsWith(ending));});
     return(words);
 };
 
@@ -128,9 +134,16 @@ var text = $.map(texts, function(x) {return window[x];}).join(' ');
 text = text.toLowerCase();
 
 var words = getWordsFromText(text);
-var genders = {"feminine": {"ending": "a", "variations": [/ae$/, /as$/]},
-               "masculine": {"ending": "us", "variations": [/i$/, /os$/, /o$/]},
-               "neuter": {"ending": "um"}}
+var genders = {"feminine": {
+                   "ending": "a",
+                   "variations": [/ae$/, /as$/]},
+               "masculine": {
+                   "ending": "us",
+                   "variations": [/i$/, /os$/, /o$/],
+                   "false_endings": ["ibus"]},
+               "neuter": {
+                   "ending": "um",
+                   "false_endings": ["orum", "arum"]}}
 
 for (var gender in genders) {
     var ending = genders[gender]["ending"];
@@ -141,6 +154,11 @@ for (var gender in genders) {
         var variation_words = getWordsOfMinLength(getWordsEndingWith(words, regex_to_string(variation)), 4);
         variation_words = normalizeVariations(variation_words, variation, ending);
         words_of_gender = words_of_gender.concat(variation_words);
+    };
+    // remove some false case endings like "ibus" and "orum"
+    for (var ending_i in genders[gender]["false_endings"]) {
+        var false_ending = genders[gender]["false_endings"][ending_i];
+        words_of_gender  = getWordsNotEndingWith(words_of_gender, false_ending);
     };
     words_of_gender = separateLetters(words_of_gender);
     var terminals = [];
