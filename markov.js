@@ -57,6 +57,13 @@ var getWordsOfMinLength = function(words, min_length) {
     return(words);
 };
 
+var filterRomanNumerals = function(words) {
+    // filter out roman numerals from the list of words
+    words = words.filter(function (x) {return(
+        !/^(?=[mdclxvi])m*(c[md]|d?c*)(x[cl]|l?x*)(i[xv]|v?i*)$/.test(x.toLowerCase()));});
+    return(words);
+};
+
 var normalizeVariations = function(words, variation, ending) {
     words = words.map(function(x) {return(x.replace(variation, ending))})
     return(words);
@@ -104,7 +111,8 @@ var choice = function (a) {
     return a[i];
 };
 
-var make_name = function (min_length, gender) {
+var make_name = function (min_length, gender, max_length) {
+    max_length = max_length || 15;
     var startletters = genders[gender]["startletters"];
     var letterstats = genders[gender]["letterstats"];
     var terminals = genders[gender]["terminals"];
@@ -119,7 +127,8 @@ var make_name = function (min_length, gender) {
     }
     name = name.join("");
     if (name.length < min_length ||
-        BAD_COMBINATIONS.some(function (x) {return(x.test(name));})) {
+        BAD_COMBINATIONS.some(function (x) {return(x.test(name));}) ||
+        name.length > max_length) {
             return make_name(min_length, gender);};
     // replace certain bad endings 
     name = name.replace(/[^u]{1}s$/, "us");
@@ -134,6 +143,7 @@ var text = $.map(texts, function(x) {return window[x];}).join(' ');
 text = text.toLowerCase();
 
 var words = getWordsFromText(text);
+words = filterRomanNumerals(words); // remove roman numerals from list of words
 var genders = {"feminine": {
                    "ending": "a",
                    "variations": [/ae$/, /as$/]},

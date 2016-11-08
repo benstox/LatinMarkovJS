@@ -27,6 +27,12 @@ pages = {
     "ovid_meta_ii":
         {"url": "http://www.thelatinlibrary.com/ovid/ovid.met2.shtml",
          "css": "body > p:nth-of-type(3)"},
+    "ovid_meta_iii":
+        {"url": "http://www.thelatinlibrary.com/ovid/ovid.met3.shtml",
+         "css": "body > p:nth-of-type(3)"},
+    "ovid_meta_iv":
+        {"url": "http://www.thelatinlibrary.com/ovid/ovid.met4.shtml",
+         "css": "body > p:nth-of-type(3)"},
     "augustine_conf_i":
         {"url": "http://www.thelatinlibrary.com/augustine/conf1.shtml",
          "css": "body"},
